@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="../static/topSongsPage.js"></script>
+
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
+
+    <link rel="stylesheet" href="../static/topSongsPage.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <title>Notebooks</title>
+</head>
+<body>
+
+
+    <!-- Start NavBar-->
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <a class="navbar-brand" href="{{ url_for('index') }}">Notebookify</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('displayOptions') }}">Home</a>
+                </li>
+                <li class="nav-item active">
+                <a class="nav-link" href="{{ url_for('displayUserInfo') }}">Notebooks</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('displayPlaylistLinks') }}">Graphs</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="#">About</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="#">Privacy Policy</a>
+                </li>
+                
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- End NavBar-->
+
+    <h3 class="text-center title">Your Spotify Notebooks</h3>
+
+    <div class="container">
+        <div class="col-lg-3 centered-element"> 
+            <h3 class="mb-4 text-center">Select Metric</h3>
+            <select id="selectMetric" onchange="setMetric()" class="form-control mb-2">5
+                <option value="tracks">Top Tracks</option>
+                <option value="artists">Top Artists</option>
+                <option value="genres">Top Genres</option>
+            </select>
+        </div>
+        
+        <div class="col-lg-6 centered-element">
+            <div class="row">
+                <div class="col">
+                    <h3 class="text-center mb-4">Time Period</h3>
+                    <button id="shortTerm" onclick="showTable('shortTerm')" ontouchstart="showTable('shortTerm')" class="set-term-button btn btn-primary btn-block mb-2 released-button">Short Term</button>
+                    <button id="mediumTerm" onclick="showTable('mediumTerm')" ontouchstart="showTable('mediumTerm')" class="set-term-button btn btn-primary btn-block mb-2 released-button">Medium Term</button>
+                    <button id="longTerm" ontouchstart="showTable('longTerm')" onclick="showTable('longTerm')" class="set-term-button btn btn-primary btn-block mb-2 pushed-button">Long Term</button>
+                </div>
+                <div class="col">
+                    <h3 class="text-center mb-4">Entries</h3>
+                    <button id="10Rows" ontouchstart="showXRows(10)" onclick="showXRows(10)" class="set-rows-button btn btn-secondary btn-block mb-2 released-button">Top 10</button>
+                    
+                    <button id="50Rows" ontouchstart="showXRows(50)" onclick="showXRows(50)" class="set-rows-button btn btn-secondary btn-block mb-2 released-button">Top 50</button>
+                    <button id="98Rows" ontouchstart="showXRows(98)" onclick="showXRows(98)" class="set-rows-button btn btn-secondary btn-block mb-2 pushed-button">Top 98</button>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+  <button onclick="downloadAsPNG()" ontouchstart="downloadAsPNG()" class="btn btn-secondary centered-button" style="display:block;">Download Notebook</button>
+
+  <br>
+
+
+<div class="notebook-container" id="toDownload">
+
+    <div class="notebook-header" id="book-header"></div>
+    <div class="notebook-header-end" id="book-header-end"></div>
+
+    <div class="page" id="page"> 
+        <div class="page-vertical-lines"></div>
+
+            {{ top99TracksShortTerm | safe }}
+                
+            
+                
+            {{ top99TracksMediumTerm | safe}}
+                
+            
+                
+            {{ top99TracksLongTerm | safe }}
+                
+            
+                
+            {{ top99ArtistsShortTerm | safe }}
+            
+            
+                
+            {{ top99ArtistsMediumTerm | safe }}
+                
+            
+                
+            {{ top99ArtistsLongTerm | safe }}
+                
+            
+            {{ top99GenresShortTerm | safe }}
+                
+            
+                
+            {{ top99GenresMediumTerm | safe }}
+                
+            
+                
+            {{ top99GenresLongTerm | safe }}
+
+    </div> 
+</div>
+
+
+    
+
+</body>
+</html>

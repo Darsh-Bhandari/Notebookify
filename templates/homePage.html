@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/homePage.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <title>Notebookify - Home</title>
+</head>
+<body>  
+            
+    <script>
+        function flipCard1() {
+            var frontCard = document.getElementById("card1-front");
+            var backCard = document.getElementById("card1-back");
+
+            if (frontCard.style.transform === 'rotateY(180deg)') {
+                frontCard.style.transform = 'rotateY(0deg)';
+                backCard.style.transform = "rotateY(180deg)";
+            }
+            
+            else {
+                frontCard.style.transform = 'rotateY(180deg)';
+                backCard.style.transform = "rotateY(0deg)";
+            }
+
+        }
+
+        function flipCard2() {
+            var frontCard = document.getElementById("card2-front");
+            var backCard = document.getElementById("card2-back");
+
+            if (frontCard.style.transform === 'rotateY(180deg)') {
+                frontCard.style.transform = 'rotateY(0deg)';
+                backCard.style.transform = "rotateY(180deg)";
+            }
+            
+            else {
+                frontCard.style.transform = 'rotateY(180deg)';
+                backCard.style.transform = "rotateY(0deg)";
+            }
+        }
+
+    </script>
+
+    <!-- Start NavBar-->
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <a class="navbar-brand" href="{{ url_for('index') }}">Notebookify</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                <a class="nav-link" href="{{ url_for('displayOptions') }}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('displayUserInfo') }}">Notebooks</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('displayPlaylistLinks') }}">Graphs</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="#">About</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="#">Privacy Policy</a>
+                </li>
+                
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- End NavBar-->
+
+    <h1 class="title-text">Notebookify</h1>
+    <h3 class="subtitle-text">Top Spotify Stats and Graph Generator</h3>
+
+    <div class="container">
+        <div class="row">
+          <div class="col-md justify-content-center">
+            
+            <a href="{{ url_for('displayUserInfo') }}">
+                <div class="card">
+                    <div class="card-side front" id="card1-front">
+                        <div class="image-container">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/97/Simpleicons_Business_notebook.svg" class="display-image">
+                        </div>
+                        <div class="display-text">Your Notebooks</div>
+                    </div>
+                    <div class="card-side back" id="card1-back">
+                        
+                        <div class="back-card-description">Provides you with personalized notebooks of your top tracks, artists, and genres.</div>
+                        <div class="back-card-line-break"></div>
+                        <div class="back-card-description">You can sort the notebooks based on short term (previous month), medium term (previous six months), and long term (all time) data.</div>
+                        <div class="back-card-line-break"></div>
+                        <div class="back-card-description">The number of rows displayed in your notebook (10, 50, or 98) can also be customized.</div>
+                        <div class="back-card-line-break"></div>
+                        <div class="back-card-description">An track/artist's popularity score relative to other creators is rated out of 100.</div>
+                        <div class="back-card-line-break"></div>
+                        <div class="back=card-description">If you want to share your notebook with your friends and family, you can download your notebook for your own use anytime!</div>
+                        
+                    </div>
+                </div>
+            </a>
+
+            <div class="card-info-button" onclick="flipCard1()"></div>
+            
+
+          </div>
+          <div class="col-md  justify-content-center">
+
+            <a href="{{ url_for('displayPlaylistLinks') }}">
+                <div class="card">
+                    <div class="card-side front" id="card2-front">
+                        <div class="image-container">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/6/64/Simpleicons_Business_bars-chart-ascending.svg" class="display-image">
+                        </div>
+                        <div class="display-text">Playlist Graphs</div>
+                    </div>
+                    <div class="card-side back" id="card2-back">
+                        
+                        <div>Back Side</div>
+                    </div>
+                </div>
+            </a>
+
+            <div class="card-info-button" onclick="flipCard2()"></div>
+
+          </div>
+          
+        </div>
+      </div>
+
+</body>
+</html>
