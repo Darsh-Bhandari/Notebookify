@@ -3,7 +3,6 @@ import plotly.express as px
 import plotly.io as pio
 import plotly.graph_objects as go
 import math
-import numpy as np
 
 def plotArtistFrequencyGraph(df): # Return the html for the bar graph for artist frequency data in playlist
     artistsDict = {}
