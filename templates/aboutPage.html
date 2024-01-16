@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <title>Notebookify - About</title>
+</head>
+<body>
+    
+    <style>
+        body {
+            background: ghostwhite;
+        }
+        .accordion {
+            display: flex;
+            flex-direction: column;
+            font-family: "Roboto", sans-serif;
+            max-width: 1000px;
+            min-width: 300px;
+            margin: 50px auto;
+            padding: 0 50px;
+        }
+        h1 {
+            font-size: 34px;
+            text-align: center;
+        }
+        .accordion-item {
+            margin-top: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #fcfcfc;
+            border-radius: 6px;
+            background: #ffffff;
+            box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+        }
+        .accordion-item .accordion-item-title {
+            position: relative;
+            margin: 0;
+            display: flex;
+            width: 100%;
+            font-size: 15px;
+            cursor: pointer;
+            justify-content: space-between;
+            flex-direction: row-reverse;
+            padding: 14px 20px;
+            box-sizing: border-box;
+            align-items: center;
+        }
+        .accordion-item .accordion-item-desc {
+            display: none;
+            font-size: 14px;
+            line-height: 22px;
+            font-weight: 300;
+            color: #444;
+            border-top: 1px dashed #ddd;
+            padding: 10px 20px 20px;
+            box-sizing: border-box;
+        }
+        .accordion-item input[type="checkbox"] {
+            position: absolute;
+            height: 0;
+            width: 0;
+            opacity: 0;
+        }
+        .accordion-item input[type="checkbox"]:checked ~ .accordion-item-desc {
+            display: block;
+        }
+        .accordion-item
+            input[type="checkbox"]:checked
+            ~ .accordion-item-title
+            .icon:after {
+            content: "-";
+            font-size: 20px;
+        }
+        .accordion-item input[type="checkbox"] ~ .accordion-item-title .icon:after {
+            content: "+";
+            font-size: 20px;
+        }
+        .accordion-item:first-child {
+            margin-top: 0;
+        }
+        .accordion-item .icon {
+            margin-left: 14px;
+        }
+
+        @media screen and (max-width: 767px) {
+            .accordion {
+                padding: 0 16px;
+            }
+            .accordion h1 {
+                font-size: 22px;
+            }
+        }
+
+    </style> 
+
+    <!-- Start NavBar-->
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <a class="navbar-brand" href="{{ url_for('index') }}">Notebookify</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('displayOptions') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('displayUserInfo') }}">Notebooks</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('displayPlaylistLinks') }}">Graphs</a>
+                </li>
+                <li class="nav-item active">
+                <a class="nav-link" href="{{ url_for('displayAboutPage') }}">About</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="#">Privacy Policy</a>
+                </li>
+                
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- End NavBar-->
+
+    
+
+    <div class="accordion">
+        <h1>Frequently Asked Questions</h1>
+        <div class="accordion-item">
+            <input type="checkbox" id="accordion1">
+            <label for="accordion1" class="accordion-item-title"><span class="icon"></span>What is Notebookify?</label>
+            <div class="accordion-item-desc">Notebookify is a website designed to give users top data about their Spotify listening habits and playlists. Notebooks can be customized and display short term, medium term, and long term data about your top tracks, artists, and genres. You can also generate graphs analyzing the contents of your individual playlists. Graphs include data such as how many times an artist appears, the tempo of tracks, how popular your playlist would be, and much much more!</div>
+    
+        <div class="accordion-item">
+            <input type="checkbox" id="accordion2">
+            <label for="accordion2" class="accordion-item-title"><span class="icon"></span>Does Notebookify sell/use my data?</label>
+            <div class="accordion-item-desc">No, Notebookify does <strong>NOT</strong> sell/use your Spotify data. We only ask you to log in so that we can use the Spotify API to get the top data/playlists that we can analyze. Your data is not stored anywhere and is safe.</div>
+        </div>
+
+        <div class="accordion-item">
+            <input type="checkbox" id="accordion8">
+            <label for="accordion8" class="accordion-item-title"><span class="icon"></span>Why is Notebookify not working?</label>
+            <div class="accordion-item-desc">If there is too much traffic on the site, Notebookify may not load properly. Also, if there is too much data to be analyzed in a playlist, the graphs may not load. Just try re-logging in with Spotify and hopefully it should work!</div>
+        </div>
+    
+        <div class="accordion-item">
+            <input type="checkbox" id="accordion3">
+            <label for="accordion3" class="accordion-item-title"><span class="icon"></span>How does Notebookify work?</label>
+            <div class="accordion-item-desc">Notebookify uses the Spotify API to pull your top listening data as well as your playlists/tracks that can then be analyzed. Notebookify was created using Python (Flask) for the back-end and HTML, CSS (Bootstrap), and Javascript for the front-end. The Plotly Python library is used to generate the graphs.</div>
+        </div>
+    
+        <div class="accordion-item">
+            <input type="checkbox" id="accordion4">
+            <label for="accordion4" class="accordion-item-title"><span class="icon"></span>How are "track popularity" and "artist popularity" measured?</label>
+            <div class="accordion-item-desc">The popularity score given to a track/artist is out of 100 (meaning that 0 is not well known at all while 100 is a very popular track/artist). These are provided by Spotify per track/artist in their database.</div>
+        </div>
+    
+        <div class="accordion-item">
+            <input type="checkbox" id="accordion5">
+            <label for="accordion5" class="accordion-item-title"><span class="icon"></span>Why do the graphs for some of my playlists not load?</label>
+            <div class="accordion-item-desc">The graphs feature is a work in progress. Some bugs are still being worked out, but if there is a very very long playlist with a lot of data, there is a chance that the graphs page will not load. Sorry about that!</div>
+        </div>
+
+        <div class="accordion-item">
+            <input type="checkbox" id="accordion6">
+            <label for="accordion6" class="accordion-item-title"><span class="icon"></span>Why do the graphs look weird on mobile?</label>
+            <div class="accordion-item-desc">If there is too much data on a graph, it won't render properly on smaller screens (like mobile devices). The graphs feature is best viewed on a laptop/desktop with a larger screen.</div>
+        </div>
+
+        <div class="accordion-item">
+            <input type="checkbox" id="accordion7">
+            <label for="accordion7" class="accordion-item-title"><span class="icon"></span>Is the code/design for this project available?</label>
+            <div class="accordion-item-desc">Yes! The code is public and can be viewed on my Github <a href="https://github.com/Darsh-Bhandari/Notebookify">here</a>.</div>
+        </div>
+    
+    </div>
+
+</body>
+</html>

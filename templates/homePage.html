@@ -64,7 +64,7 @@
                 <a class="nav-link" href="{{ url_for('displayPlaylistLinks') }}">Graphs</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
+                <a class="nav-link" href="{{ url_for('displayAboutPage') }}">About</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" href="#">Privacy Policy</a>
@@ -101,7 +101,6 @@
                         <div class="back-card-line-break"></div>
                         <div class="back-card-description">An track/artist's popularity score relative to other creators is rated out of 100.</div>
                         <div class="back-card-line-break"></div>
-                        <div class="back=card-description">If you want to share your notebook with your friends and family, you can download your notebook for your own use anytime!</div>
                         
                     </div>
                 </div>
@@ -123,7 +122,12 @@
                     </div>
                     <div class="card-side back" id="card2-back">
                         
-                        <div>Back Side</div>
+                        <div class="back-card-description">Provides you with a list of your playlists. From this list of playlists, select one to obtain graphs of various data inside that specific playlist.</div>
+                        <div class="back-card-line-break"></div>
+                        <div class="back-card-description">Graphs include a map of the playlist's artists/albums/tracks, release dates, track tempos, artist frequency, track keys, and more!</div>
+                        <div class="back-card-line-break"></div>
+                        <div class="back-card-description">A track/artist's popularity score relative to other creators is rated out of 100. The valence of a track is how much of a "feel-good" vibe the song has to it.</div>
+                        <div class="back-card-line-break"></div>
                     </div>
                 </div>
             </a>

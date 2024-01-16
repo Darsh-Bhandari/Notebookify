@@ -67,37 +67,57 @@ def setTokenAndId():
             global userId 
             userId= user_data['id']
 
+@app.route('/about')
+def displayAboutPage():
+    return render_template('aboutPage.html')
+
 @app.route('/userInfo')
 def displayUserInfo():
-    top99TracksShortTerm, top99TracksMediumTerm, top99TracksLongTerm = getTopUserData.getTrackInfo(access_token)
-    top99ArtistsShortTerm, shortTermGenres, top99ArtistsMediumTerm, mediumTermGenres, top99ArtistsLongTerm, longTermGenres = getTopUserData.getArtistInfo(access_token)
 
-    
-    top99TracksShortTerm, top99TracksMediumTerm, top99TracksLongTerm = top99TracksShortTerm.to_html(index=False, classes='table', escape=False, table_id='tracks-shortTerm'), top99TracksMediumTerm.to_html(index=False, classes='table', escape=False, table_id='tracks-mediumTerm'), top99TracksLongTerm.to_html(index=False, classes='table', escape=False, table_id='tracks-longTerm')
-    top99ArtistsShortTerm, top99ArtistsMediumTerm, top99ArtistsLongTerm = top99ArtistsShortTerm.to_html(index=False, classes='table', escape=False, table_id='artists-shortTerm'), top99ArtistsMediumTerm.to_html(index=False, classes='table', escape=False, table_id='artists-mediumTerm'), top99ArtistsLongTerm.to_html(index=False, classes='table', escape=False, table_id='artists-longTerm')
+    try:
+        top99TracksShortTerm, top99TracksMediumTerm, top99TracksLongTerm = getTopUserData.getTrackInfo(access_token)
+        top99ArtistsShortTerm, shortTermGenres, top99ArtistsMediumTerm, mediumTermGenres, top99ArtistsLongTerm, longTermGenres = getTopUserData.getArtistInfo(access_token)
 
-    top99GenresShortTerm, top99GenresMediumTerm, top99GenresLongTerm = shortTermGenres.to_html(index=False, classes='table', escape=False, table_id='genres-shortTerm'), mediumTermGenres.to_html(index=False, classes='table', escape=False, table_id='genres-mediumTerm'), longTermGenres.to_html(index=False, classes='table', escape=False, table_id='genres-longTerm')
+        
+        top99TracksShortTerm, top99TracksMediumTerm, top99TracksLongTerm = top99TracksShortTerm.to_html(index=False, classes='table', escape=False, table_id='tracks-shortTerm'), top99TracksMediumTerm.to_html(index=False, classes='table', escape=False, table_id='tracks-mediumTerm'), top99TracksLongTerm.to_html(index=False, classes='table', escape=False, table_id='tracks-longTerm')
+        top99ArtistsShortTerm, top99ArtistsMediumTerm, top99ArtistsLongTerm = top99ArtistsShortTerm.to_html(index=False, classes='table', escape=False, table_id='artists-shortTerm'), top99ArtistsMediumTerm.to_html(index=False, classes='table', escape=False, table_id='artists-mediumTerm'), top99ArtistsLongTerm.to_html(index=False, classes='table', escape=False, table_id='artists-longTerm')
 
-    return render_template("topSongsInfo.html", top99TracksShortTerm=top99TracksShortTerm, top99TracksMediumTerm=top99TracksMediumTerm, 
-                           top99TracksLongTerm=top99TracksLongTerm, top99ArtistsShortTerm=top99ArtistsShortTerm, 
-                           top99ArtistsMediumTerm=top99ArtistsMediumTerm, top99ArtistsLongTerm=top99ArtistsLongTerm, 
-                           top99GenresShortTerm=top99GenresShortTerm, top99GenresMediumTerm=top99GenresMediumTerm, top99GenresLongTerm=top99GenresLongTerm)
-    
+        top99GenresShortTerm, top99GenresMediumTerm, top99GenresLongTerm = shortTermGenres.to_html(index=False, classes='table', escape=False, table_id='genres-shortTerm'), mediumTermGenres.to_html(index=False, classes='table', escape=False, table_id='genres-mediumTerm'), longTermGenres.to_html(index=False, classes='table', escape=False, table_id='genres-longTerm')
 
-
-    
+        return render_template("topSongsInfo.html", top99TracksShortTerm=top99TracksShortTerm, top99TracksMediumTerm=top99TracksMediumTerm, 
+                            top99TracksLongTerm=top99TracksLongTerm, top99ArtistsShortTerm=top99ArtistsShortTerm, 
+                            top99ArtistsMediumTerm=top99ArtistsMediumTerm, top99ArtistsLongTerm=top99ArtistsLongTerm, 
+                            top99GenresShortTerm=top99GenresShortTerm, top99GenresMediumTerm=top99GenresMediumTerm, top99GenresLongTerm=top99GenresLongTerm)
+    except:
+        auth_params = {
+        'client_id': clientId,
+        'response_type': 'code',
+        'redirect_uri': redirectURI,
+        'scope': appScope
+        }
+        auth_url = 'https://accounts.spotify.com/authorize?' + urllib.parse.urlencode(auth_params)
+        return render_template("errorPage.html", auth_url=auth_url)
 
 
 @app.route('/playlistdata')
 def displayPlaylistLinks():
-    setTokenAndId()
-    playlistNames, playlistIds, playlistImages = getPlaylistIds()
-    size = len(playlistNames)
-    # playlistData = zip(playlistNames, playlistIds, playlistImages)
+    try:
+        setTokenAndId()
+        playlistNames, playlistIds, playlistImages = getPlaylistIds()
+        size = len(playlistNames)
+    
+        return render_template("displayPlaylists.html", playlistNames=playlistNames, playlistIds=playlistIds, playlistImages=playlistImages, 
+                            size=size)
+    except:
+        auth_params = {
+        'client_id': clientId,
+        'response_type': 'code',
+        'redirect_uri': redirectURI,
+        'scope': appScope
+        }
+        auth_url = 'https://accounts.spotify.com/authorize?' + urllib.parse.urlencode(auth_params)
+        return render_template("errorPage.html", auth_url=auth_url)
    
-    return render_template("displayPlaylists.html", playlistNames=playlistNames, playlistIds=playlistIds, playlistImages=playlistImages, 
-                           size=size)
-   # return render_template("displayPlaylists.html", playlistData=playlistData)
 
 def getPlaylistIds(): # Returns lists of user's playlist names, ids, and images
     offset = 0
@@ -130,25 +150,35 @@ def getPlaylistIds(): # Returns lists of user's playlist names, ids, and images
 
 @app.route('/playlistdata/<playlistId>')
 def plotAllGraphs(playlistId):
-    testId = playlistId
+    try:
+        testId = playlistId
 
-    songInformation = getSongInformation(testId)
+        songInformation = getSongInformation(testId)
 
-    artistFreqGraph = plotGraphs.plotArtistFrequencyGraph(songInformation)
-    albumReleaseDatesGraph = plotGraphs.plotAlbumReleaseDates(songInformation)
-    albumToArtistTreemap = plotGraphs.plotAlbumsToArtistsGraph(songInformation)
-    radarGraph, songEnergyAvg, songDancibilityAvg, songInstrumentalnessAvg, songValenceAvg = plotGraphs.plotRadarChart(songInformation)
-    tempoGraph, highestTempoTable, lowestTempoTable = plotGraphs.plotTempoData(songInformation)
-    modeGraph = plotGraphs.plotModeGraph(songInformation)
-    explicitWordsGraph = plotGraphs.plotExplicitChart(songInformation)
-    popularityGraph, songLengthGraph = plotGraphs.plotSongBoxPlots(songInformation)
+        artistFreqGraph = plotGraphs.plotArtistFrequencyGraph(songInformation)
+        albumReleaseDatesGraph = plotGraphs.plotAlbumReleaseDates(songInformation)
+        albumToArtistTreemap = plotGraphs.plotAlbumsToArtistsGraph(songInformation)
+        radarGraph, songEnergyAvg, songDancibilityAvg, songInstrumentalnessAvg, songValenceAvg = plotGraphs.plotRadarChart(songInformation)
+        tempoGraph, highestTempoTable, lowestTempoTable = plotGraphs.plotTempoData(songInformation)
+        modeGraph = plotGraphs.plotModeGraph(songInformation)
+        explicitWordsGraph = plotGraphs.plotExplicitChart(songInformation)
+        popularityGraph, songLengthGraph = plotGraphs.plotSongBoxPlots(songInformation)
 
-    return render_template(
-        "renderGraphs.html", artistFreqGraph = artistFreqGraph, 
-        albumReleaseDatesGraph = albumReleaseDatesGraph, radarGraph = radarGraph, songEnergyAvg = songEnergyAvg, 
-        songDancibilityAvg = songDancibilityAvg, songInstrumentalnessAvg = songInstrumentalnessAvg, songValenceAvg = songValenceAvg,
-        modeGraph=modeGraph, albumToArtistTreemap=albumToArtistTreemap, tempoGraph=tempoGraph, highestTempoTable=highestTempoTable,
-        lowestTempoTable=lowestTempoTable, explicitWordsGraph=explicitWordsGraph, popularityGraph=popularityGraph, songLengthGraph=songLengthGraph)
+        return render_template(
+            "renderGraphs.html", artistFreqGraph = artistFreqGraph, 
+            albumReleaseDatesGraph = albumReleaseDatesGraph, radarGraph = radarGraph, songEnergyAvg = songEnergyAvg, 
+            songDancibilityAvg = songDancibilityAvg, songInstrumentalnessAvg = songInstrumentalnessAvg, songValenceAvg = songValenceAvg,
+            modeGraph=modeGraph, albumToArtistTreemap=albumToArtistTreemap, tempoGraph=tempoGraph, highestTempoTable=highestTempoTable,
+            lowestTempoTable=lowestTempoTable, explicitWordsGraph=explicitWordsGraph, popularityGraph=popularityGraph, songLengthGraph=songLengthGraph)
+    except:
+        auth_params = {
+        'client_id': clientId,
+        'response_type': 'code',
+        'redirect_uri': redirectURI,
+        'scope': appScope
+        }
+        auth_url = 'https://accounts.spotify.com/authorize?' + urllib.parse.urlencode(auth_params)
+        return render_template("errorPage.html", auth_url=auth_url)
 
 
 def getSongInformation(playlistId): # Get a dataframe object with all needed data to create the statistics graphs

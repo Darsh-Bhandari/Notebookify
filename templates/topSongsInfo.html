@@ -37,7 +37,7 @@
                 <a class="nav-link" href="{{ url_for('displayPlaylistLinks') }}">Graphs</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
+                <a class="nav-link" href="{{ url_for('displayAboutPage') }}">About</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" href="#">Privacy Policy</a>
@@ -53,7 +53,7 @@
 
     <div class="container">
         <div class="col-lg-3 centered-element"> 
-            <h3 class="mb-4 text-center">Select Metric</h3>
+            <h3 class="mb-4 text-center subheading-text">Select Metric</h3>
             <select id="selectMetric" onchange="setMetric()" class="form-control mb-2">5
                 <option value="tracks">Top Tracks</option>
                 <option value="artists">Top Artists</option>
@@ -64,13 +64,13 @@
         <div class="col-lg-6 centered-element">
             <div class="row">
                 <div class="col">
-                    <h3 class="text-center mb-4">Time Period</h3>
+                    <h3 class="text-center mb-4 subheading-text">Time Period</h3>
                     <button id="shortTerm" onclick="showTable('shortTerm')" ontouchstart="showTable('shortTerm')" class="set-term-button btn btn-primary btn-block mb-2 released-button">Short Term</button>
                     <button id="mediumTerm" onclick="showTable('mediumTerm')" ontouchstart="showTable('mediumTerm')" class="set-term-button btn btn-primary btn-block mb-2 released-button">Medium Term</button>
                     <button id="longTerm" ontouchstart="showTable('longTerm')" onclick="showTable('longTerm')" class="set-term-button btn btn-primary btn-block mb-2 pushed-button">Long Term</button>
                 </div>
                 <div class="col">
-                    <h3 class="text-center mb-4">Entries</h3>
+                    <h3 class="text-center mb-4 subheading-text">Entries</h3>
                     <button id="10Rows" ontouchstart="showXRows(10)" onclick="showXRows(10)" class="set-rows-button btn btn-secondary btn-block mb-2 released-button">Top 10</button>
                     
                     <button id="50Rows" ontouchstart="showXRows(50)" onclick="showXRows(50)" class="set-rows-button btn btn-secondary btn-block mb-2 released-button">Top 50</button>

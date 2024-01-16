@@ -23,7 +23,11 @@ def plotArtistFrequencyGraph(df): # Return the html for the bar graph for artist
     figure.update_layout(
         xaxis={'categoryorder': 'total descending', 'tickmode': 'linear'},
         yaxis={'title': 'Frequency', 'range': [0, max(data2['Frequency']) + 5]},
-        autosize=True,  
+        autosize=True, 
+        font=dict(family="Roboto", color="black"),
+        title_x=0.5,
+        title_y=0.95,
+        title_font=dict(size=23)
     )
     figure.update_traces(marker_color='#4C7F3A')
 
@@ -48,7 +52,12 @@ def plotAlbumReleaseDates(df): # Return the html for the bar graph for album rel
     figure = px.bar(chartData, x='Year', y='Song Frequency', title='Track Release Years')
     figure.update_layout(
         xaxis={'tickmode': 'linear'},
-        yaxis={'title': 'Frequency'}  
+        yaxis={'title': 'Frequency'},
+        plot_bgcolor='ghostwhite', 
+        font=dict(family="Roboto", color="black"),
+        title_x=0.5,
+        title_y=0.95,
+        title_font=dict(size=23)  
     )
     figure.update_traces(marker_color='#4C7F3A')
 
@@ -99,6 +108,13 @@ def plotAlbumsToArtistsGraph(df): # Return the html to the album to artist treem
         hovertemplate='<b>Album:</b> %{customdata[3]}<br><b>Artist:</b> %{customdata[2]}<br><b>Tracks:</b> %{customdata[0]}<br><b>Track Count:</b> %{customdata[4]}'
     ) 
 
+    figure.update_layout(
+        font=dict(family="Roboto", color="black"),
+        title_x=0.5,
+        title_y=0.95,
+        title_font=dict(size=23)  
+    )
+
     graph_html_string = pio.to_html(figure, full_html=False)
     return graph_html_string
 
@@ -136,7 +152,13 @@ def plotRadarChart(df): # Return the html for the radar graph for random statist
         averages.append(data['theta'][i] + ": " + str(data['r'][i]))
 
     figure = px.line_polar(data, r='r', theta='theta', line_close=True, range_r=[0,1], title='Miscellanous Data')
-    figure.update_traces(fill='toself', line_color='#4C7F3A', fillcolor='#4C7F3A')
+    figure.update_traces(fill='toself', line_color='#4C7F3A', fillcolor='#4C7F3A', hoverinfo='all')
+    figure.update_layout(
+        font=dict(family="Roboto", color="black"),
+        title_x=0.5,
+        title_y=0.95,
+        title_font=dict(size=23)  
+    )
     
     graph_html_string = pio.to_html(figure, full_html=False)
     return graph_html_string, round(songEnergyAvg, 2), round(songDancibilityAvg, 2), round(songInstrumentalnessAvg, 2), round(songValenceAvg, 2)
@@ -163,10 +185,14 @@ def plotTempoData(df): # Return html for tempo bar chart, lowest tempos table, h
     tempoChart.update_layout(
         xaxis={'tickmode': 'array', 'title': 'Tempo (BPM)', 'tickvals': chartData['Tempo'], 'ticktext': chartData['Tempo']},
         yaxis={'title': 'Frequency'},
+        font=dict(family="Roboto", color="black"),
+        title_x=0.5,
+        title_y=0.95,
+        title_font=dict(size=23)
     )
     tempoChart.update_traces(marker_color='#4C7F3A')
+    tempoChart.update_layout(plot_bgcolor='ghostwhite')
     tempoChartHtml = pio.to_html(tempoChart, full_html=False)
-
 
     sortedByMin = df.sort_values(by='songTempo')
     sortedByMax = df.sort_values(by='songTempo', ascending=False)
@@ -185,8 +211,8 @@ def plotTempoData(df): # Return html for tempo bar chart, lowest tempos table, h
     tenLowestTempos.columns = ['Rank', 'Track Name', 'Tempo']
     tenHighestTempos.columns = ['Rank', 'Track Name', 'Tempo']
 
-    lowestTempoTable = tenLowestTempos.to_html(index=False)
-    highestTempoTable = tenHighestTempos.to_html(index=False)
+    lowestTempoTable = tenLowestTempos.to_html(index=False, classes='tempo-chart table table-hover')
+    highestTempoTable = tenHighestTempos.to_html(index=False, classes='tempo-chart table table-hover')
 
     return tempoChartHtml, lowestTempoTable, highestTempoTable
 
@@ -203,8 +229,13 @@ def plotModeGraph(df):
 
     chartData = pd.DataFrame(modeDict.items(), columns=['Mode', 'Frequency'])
 
-    figure = px.pie(chartData, values='Frequency', names='Mode', title='Track Keys')
-    figure.update_layout(legend=dict(font=dict(size=20)))
+    figure = px.pie(chartData, values='Frequency', names='Mode', title='Track Keys', color_discrete_sequence=['#4C7F3A', 'rgb(55,126,184)'])
+    figure.update_layout(
+        legend=dict(font=dict(size=20)), 
+        font=dict(family="Roboto", color="black"),
+        title_x=0.5,
+        title_y=0.95,
+        title_font=dict(size=23))
     figure.update_traces(textinfo='value+label', insidetextfont=dict(size=20))
 
     graph_html_string = pio.to_html(figure, full_html=False)
@@ -214,8 +245,14 @@ def plotExplicitChart(df):
     chartData = df['isExplicit'].value_counts().reset_index()
     chartData.columns = ['Contains Explicit Lyrics', 'Frequency']
 
-    figure = px.pie(chartData, values='Frequency', names='Contains Explicit Lyrics', title='Track Contains Explicit Lyrics')
-    figure.update_layout(legend=dict(font=dict(size=20)))
+    figure = px.pie(chartData, values='Frequency', names='Contains Explicit Lyrics', title='Track Contains Explicit Lyrics', color_discrete_sequence=['#4C7F3A', 'rgb(55,126,184)'])
+    figure.update_layout(
+        legend=dict(font=dict(size=20)), 
+        font=dict(family="Roboto", color="black"),
+        title_x=0.5,
+        title_y=0.95,
+        title_font=dict(size=23)
+    )
     figure.update_traces(textinfo='label+value', insidetextfont=dict(size=16), labels=['No', 'Yes'])
 
     graph_html_string = pio.to_html(figure, full_html=False)
@@ -224,13 +261,21 @@ def plotExplicitChart(df):
 def plotSongBoxPlots(df):
     popularityPlot = px.box(df, y='songPopularity', title='Track Popularity')
     popularityPlot.update_layout(
-        yaxis= {'title' : 'Track Popularity'}
+        yaxis= {'title' : 'Track Popularity'},
+        font=dict(family="Roboto", color="black"),
+        title_x=0.5,
+        title_y=0.95,
+        title_font=dict(size=23)
     )
     popularityPlot.update_traces(line_color='#4C7F3A', marker=dict(color='#4C7F3A'))
 
     lengthPlot = px.box(df, y='songLength', title='Track Length')
     lengthPlot.update_layout(
-        yaxis= {'title' : 'Track Length (Seconds)'}
+        yaxis= {'title' : 'Track Length (Seconds)'},
+        font=dict(family="Roboto", color="black"),
+        title_x=0.5,
+        title_y=0.95,
+        title_font=dict(size=23)
     )
     lengthPlot.update_traces(line_color='#4C7F3A', marker=dict(color='#4C7F3A'))
 

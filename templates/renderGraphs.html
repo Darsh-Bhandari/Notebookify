@@ -11,7 +11,28 @@
 
 
         <style>
+           
+            .title-text {
+                text-align: center;
+                font-family: 'Roboto', sans-serif;
+                font-size: 3rem;
+                margin-top: 15px;
+            }
 
+            .table-title-text {
+                text-align: center;
+                font-family: 'Roboto', sans-serif;
+                font-size: 1.5rem;
+                font-weight: 500;
+            }
+
+            .tempo-chart, td, th {
+                text-align: center;
+            }
+
+            .graphs-space {
+                margin-bottom: 50px;
+            }
 
         </style>
 
@@ -34,7 +55,7 @@
                     <a class="nav-link" href="{{ url_for('displayPlaylistLinks') }}">Graphs</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
+                    <a class="nav-link" href="{{ url_for('displayAboutPage') }}">About</a>
                     </li>
                     <li class="nav-item">
                     <a class="nav-link" href="#">Privacy Policy</a>
@@ -47,34 +68,64 @@
         <!-- End NavBar-->
 
 
-        <h1>Artist Data</h1>
-        <div id="plot"></div>
-        {{ artistFreqGraph | safe }}
-
-        <h1>Album Release Data</h1>
-        {{ albumReleaseDatesGraph | safe }}
+        <h2 class="title-text">Playlist Overview</h2>
+        
         {{ albumToArtistTreemap | safe }}
 
-        <h1>Song Data</h1>
+        <div class="graphs-space"></div>
+
+        {{ artistFreqGraph | safe }}
+
+        <div class="graphs-space"></div>
+
+        {{ albumReleaseDatesGraph | safe }}
+
+        <div class="graphs-space"></div>
+
+        <h2 class="title-text">Song Data</h2>
+
+        <div class="graphs-space"></div>
+
         {{ tempoGraph | safe }}
 
-        
-        {{ highestTempoTable | safe }}
-        {{ lowestTempoTable | safe }}
+        <div class="graphs-space"></div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md d-flex justify-content-center align-items-center">
+                    <div class="text-center">
+                        <p class="table-title-text">10 Lowest Tempo Tracks</p>
+                        {{ highestTempoTable | safe }}
+                    </div>
+                </div>
+
+                <div class="col-md d-flex justify-content-center align-items-center">
+                    <div class="text-center">
+                        <p class="table-title-text">10 Highest Tempo Tracks</p>
+                        {{ lowestTempoTable | safe }}
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="graphs-space"></div>
 
         {{ radarGraph | safe }}
 
-        <p>*All averages are out of 1</p>
-        <p>Average Song Energy = {{songEnergyAvg}}</p>
-        <p>Average Song Dancibility = {{songDancibilityAvg}}</p>
-        <p>Average Song Instrumentalness = {{songInstrumentalnessAvg}}</p>
-        <p>Average Song Valence (Feel Goodness) = {{songValenceAvg}}</p>
+        <div class="graphs-space"></div>
 
         {{modeGraph | safe}}
 
+        <div class="graphs-space"></div>
+
         {{ explicitWordsGraph | safe }}
 
+        <div class="graphs-space"></div>
+
         {{ popularityGraph | safe }}
+
+        <div class="graphs-space"></div>
 
         {{ songLengthGraph | safe }}
         
